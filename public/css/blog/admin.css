@@ -1,0 +1,46 @@
+#btn-admin-hide, #btn-admin-show {
+    position: fixed;
+    right: 1%;
+    top: 10%;
+}
+
+#btn-admin-show {
+    display: none;
+}
+
+.txt-form-short {
+    max-width:200px;
+}
+
+.tag-check-box {
+    display: inline;
+    border: 1px solid #919191;
+    margin-right: -1px;
+    padding: 3px;
+}
+/* extract to helper later */
+.inline {
+    display: inline;
+}
+
+.inline-block {
+    display:inline-block;
+}
+
+.padding-btm-10 {
+    padding: 10px;
+}
+
+.no-wrap {
+    white-space:nowrap;
+}
+
+.center {
+    float: none;
+    margin: 0 auto;
+    width: 15em;
+}
+.center form {
+    display: inline-block;
+
+}
