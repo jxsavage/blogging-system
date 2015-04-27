@@ -70,13 +70,13 @@ class ArticlePictureController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $tagUpdate)
+    public function update($id, Request $pictureUpdate)
     {
-        $tag = Tag::find($id);
+        $picture = ArticlePicture::find($id);
 
-        $tag->tag = $tagUpdate['updated_tag'];
+        $picture->url = $pictureUpdate['updated_picture'];
 
-        $tag->save();
+        $picture->save();
         return redirect('blog');
     }
 
@@ -88,9 +88,9 @@ class ArticlePictureController extends Controller {
      */
     public function destroy($id)
     {
-        $tag = Tag::find($id);
+        $picture = ArticlePicture::find($id);
 
-        $tag->delete();
+        $picture->delete();
 
         return redirect('blog');
     }

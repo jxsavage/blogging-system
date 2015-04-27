@@ -12,16 +12,23 @@ class Role extends Model {
 	protected $table = 'roles';
 
 	/**
+	* Disable timestamps. default = true.
+	*
+	* @var boolean
+	*/
+	public $timestamps = false;
+
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = ['role'];
-        
+
         /**
          * Relationships of a Role...
          */
-        
+
         public function user()
         {
             $this->belongsToMany('App\User');

@@ -27,11 +27,11 @@ class Article extends Model
   	 *
   	 * @var array
   	 */
-  	protected $fillable = ['meta_keywords', 'meta_description', 'title',
+  	protected $fillable = ['meta_description', 'title',
       'content', 'user_id', 'publish_on'];
 
     /**
-     * Additional fields to treate as Carbon instances
+     * Additional fields to treat as Carbon instances
      * @var array
      */
     protected $dates = ['publish_on'];
@@ -58,26 +58,75 @@ class Article extends Model
     {
         return $this->belongsTo('App\User');
     }
-    /**
+    /*
     * Custom methods for an Article.
-    *
     */
 
     public function hasTag($tag)
     {
         $hasTag = false;
 
-        
+        $tags = $this->tags->lists('tag');
 
-        foreach($this->tags as $articleTag)
+        foreach ( $tags as $articleTag )
         {
-            if ($articleTag->tag === $tag)
+            if ( $articleTag === $tag )
             {
                 $hasTag = true;
+                break;
             }
         }
 
         return $hasTag;
+    }
+
+    public function updateTags($updatedTagIds)
+    {
+
+        $existingTagIds = $this->tags->lists('id');
+
+
+        $addTagIds = array_diff($updatedTagIds, $existingTagIds);
+		$removeTagIds = array_diff($existingTagIds, $updatedTagIds);
+
+		if($addTagIds)
+        {
+            $this->tags()->attach($addTagIds);
+        }
+		if($removeTagIds)
+        {
+            $this->tags()->detach($removeTagIds);
+        }
+    }
+
+    public function updatePictures($newPictures)
+    {
+        dd($newPictures);
+        foreach($newPictures as $picture)
+        {
+            $imgName = md5($picture->getClientOriginalName());
+            $picture->move(public_path().'/img/articles/article'.$this->id, $imgName.'.'.$picture->getClientOriginalExtension());
+            ArticlePicture::create([
+                'article_id' => $this->id,
+                'url' => '/img/articles/article'.$this->id.'/'.$imgName.'.'.$picture->getClientOriginalExtension()
+            ]);
+        }
+    }
+
+    /*
+    * Overridden methods for an Article.
+    */
+
+    public function delete()
+    {
+        //remove entries from article_tag pivot
+        $this->tags()->detach();
+
+        //removes entries from article_pictures table
+        $this->articlePictures()->delete();
+
+        //delete the article
+        return parent::delete();
     }
 
     /**

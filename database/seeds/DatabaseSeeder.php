@@ -14,26 +14,22 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Model::unguard();
-                DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-                App\Role::truncate();
-                App\RoleUser::truncate();
-                App\Tag::truncate();
-                App\ArticleTag::truncate();
-                App\ArticlePicture::truncate();
-                App\Article::truncate();
-                App\User::truncate();
-                
-                $this->call('UsersTableSeeder');
+		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+		App\ArticleTag::truncate();
+		App\ArticlePicture::truncate();
+		App\RoleUser::truncate();
+		App\Role::truncate();
+        App\Tag::truncate();
+        App\Article::truncate();
+        App\User::truncate();
+
+        $this->call('UsersTableSeeder');
 		$this->call('ArticlesTableSeeder');
-                $this->call('ArticlePicturesTableSeeder');
-                $this->call('ArticleTagsTableSeeder');
-                $this->call('TagsTableSeeder');
-                $this->call('RoleUserTableSeeder');
-                $this->call('RolesTableSeeder');
-                
-                DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-                
-                
+        $this->call('ArticlePicturesTableSeeder');
+		$this->call('TagsTableSeeder');
+		$this->call('ArticleTagsTableSeeder');
+		$this->call('RolesTableSeeder');
+        $this->call('RoleUserTableSeeder');
 	}
 
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Laracasts\TestDummy\Factory as TestDummy;
 
 class UsersTableSeeder extends Seeder {
-    
+
     static private $count = 75;
     public static function getQuantity()
     {
@@ -14,9 +14,9 @@ class UsersTableSeeder extends Seeder {
     }
     public function run()
     {
-        
+
         $faker = Faker\Factory::create();
-        
+
         App\User::create([
             'first_name'    => 'blog',
             'last_name'     => 'owner',
@@ -24,8 +24,8 @@ class UsersTableSeeder extends Seeder {
             'email'         => 'owner@blog.com',
             'password'      => Hash::make('secret'),
         ]);
-        
-        for( $x=0; $x<static::$count; $x++)
+
+        for( $x=0; $x < static::$count; $x++ )
         {
             App\User::create([
             'first_name'    => $faker->firstName,

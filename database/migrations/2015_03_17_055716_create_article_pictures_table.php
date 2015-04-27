@@ -15,15 +15,16 @@ class CreateArticlePicturesTable extends Migration {
 		Schema::create('article_pictures', function(Blueprint $table)
 		{
 			$table->increments('id');
-                        $table->integer('article_id')->unsigned();
-                        $table->string('url');
-			$table->timestamps();
+            $table->integer('article_id')->unsigned();
+            $table->string('url');
+			$table->string('alt');
+			$table->string('caption');
 		});
-                Schema::table('article_pictures', function(Blueprint $table)
+        Schema::table('article_pictures', function(Blueprint $table)
 		{
 			$table->foreign('article_id')->references('id')->on('articles');
 		});
-                
+
 	}
 
 	/**

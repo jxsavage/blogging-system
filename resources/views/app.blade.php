@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>electronluv</title>
+	<title>myBlog</title>
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	@yield('header')
@@ -29,12 +29,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">electronluv</a>
+				<a class="navbar-brand" href="#">Blog</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
+					<li><a href="{{ url('/blog') }}">Blog</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -53,7 +54,10 @@
 			</div>
 		</div>
 	</nav>
-
+	@if ( Session::has('flash_message') )
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		<div class="alert alert-success">{{ Session::get('flash_message')}}</div>
+	@endif
 	@yield('content')
 
 	<!-- Scripts -->

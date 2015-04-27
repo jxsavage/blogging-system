@@ -12,19 +12,26 @@ class ArticlePicture extends Model {
 	protected $table = 'article_pictures';
 
 	/**
+	* Disable timestamps. default = true.
+	*
+	* @var boolean
+	*/
+	public $timestamps = false;
+
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = ['article_id', 'url'];
-        
-        /**
-         * Relationships a ArticlePicture has...
-         */
-        public function article()
-        {
-            $this->belongsTo('App\Article');
-        }
-        
+
+    /**
+     * Relationships a ArticlePicture has...
+     */
+    public function article()
+    {
+        $this->belongsTo('App\Article');
+    }
+
 
 }

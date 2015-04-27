@@ -38,7 +38,7 @@ class TagController extends Controller {
     {
         Tag::create(['tag' => $tag->new_tag]);
 
-        return redirect('blog');
+        return view('blog.partials.manageTagModalContent', ['tags' => Tag::all()]);
     }
 
     /**
@@ -76,7 +76,7 @@ class TagController extends Controller {
         $tag->tag = $tagUpdate['updated_tag'];
 
         $tag->save();
-        return redirect('blog');
+        return view('blog.partials.manageTagModalContent', ['tags' => Tag::all()]);
     }
 
     /**
@@ -89,8 +89,10 @@ class TagController extends Controller {
     {
         $tag = Tag::find($id);
 
+        $tag->articles()->detach();
+
         $tag->delete();
 
-        return redirect('blog');
+        return view('blog.partials.manageTagModalContent', ['tags' => Tag::all()]);
     }
 }

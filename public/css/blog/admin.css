@@ -44,3 +44,27 @@
     display: inline-block;
 
 }
+
+.add-bootstrap-column-padding {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.margin-top-25 {
+    margin-top: 25px;
+}
+
+/* extract to article picture */
+
+.article-div-picture {
+    height: 200px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+}
+
+.article-div-picture-row {
+    padding-right: 15px;
+    padding-left: 15px;
+}

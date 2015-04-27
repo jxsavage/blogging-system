@@ -15,18 +15,18 @@ class CreateArticlesTable extends Migration {
 		Schema::create('articles', function(Blueprint $table)
 		{
 			$table->increments('id');
-                        $table->string('meta_keywords');
-                        $table->string('meta_description');
-                        $table->string('title');
-                        $table->text('content');
-                        $table->integer('user_id')->unsigned();
-                        $table->dateTime('publish_on');
+            $table->string('meta_description');
+            $table->string('title');
+			$table->string('title_slug')->unique();
+            $table->text('content');
+            $table->integer('user_id')->unsigned();
+            $table->dateTime('publish_on');
 			$table->timestamps();
 		});
 
-                Schema::table('articles', function(Blueprint $table){
-                    $table->foreign('user_id')->references('id')->on('users');
-                });
+        Schema::table('articles', function(Blueprint $table){
+            $table->foreign('user_id')->references('id')->on('users');
+        });
 	}
 
 	/**

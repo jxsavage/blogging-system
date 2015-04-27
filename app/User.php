@@ -63,34 +63,55 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	*/
 	public function hasRole($role)
 	{
+
+
 		$hasRole = false;
 
-		if (is_array($role))
+		$userRoles = $this->roles->lists('role');
+
+		if ( is_array($role) )
         {
-			foreach($role as $roleToCheck)
+			foreach ( $role as $roleToCheck )
 			{
-				foreach($this->roles as $userRole)
-		        {
-		            if ($userRole->role === $roleToCheck)
-		            {
-		                $hasRole = true;
+				foreach ( $userRoles as $userRole )
+				{
+					if ( $userRole === $roleToCheck )
+					{
+						$hasRole = true;
 						break 2;
-		            }
-		        }
+					}
+				}
 			}
         }
 		else
 		{
-	        foreach($this->roles as $userRole)
-	        {
-	            if ($userRole->role === $role)
-	            {
-	                $hasRole = true;
-	            }
-	        }
+	        foreach ( $userRoles as $userRole )
+			{
+				if ( $userRole === $role )
+				{
+					$hasRole = true;
+					break;
+				}
+			}
 		}
 
         return $hasRole;
+	}
+
+	/*
+	* Overridden Methods for a User.
+	*/
+
+	public function delete()
+	{
+		//removes all roles from pivot.
+		$this->roles()->detach();
+
+		//removes articles published by user.
+		$this->articles()->delete();
+
+		//delete the user.
+		return parent::delete();
 	}
 
 

@@ -1,12 +1,15 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\StoreArticleRequest;
 use App\Http\Controllers\Controller;
+
+
 
 use Illuminate\Http\Request as Request;
 
 use App\Article;
 use App\Tag;
+use App\ArticlePicture;
 
 use Carbon\Carbon as Carbon;
 
@@ -38,9 +41,8 @@ class ArticlesController extends Controller {
 	 *
 	 * @return redirect to index
 	 */
-	public function store(Request $article)
+	public function store(StoreArticleRequest $article)
 	{
-		dd($article['tags']);
 		$newArticle = $article->all();
 
 		$newArticle['user_id'] = \Auth::user()->id;
@@ -69,7 +71,7 @@ class ArticlesController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return view('blog.partials.articleUpdate')->with(['article' => Article::find($id)]);
 	}
 
 	/**
@@ -78,33 +80,32 @@ class ArticlesController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $articleUpdate)
+	public function update($id,  Request $articleUpdate)
 	{
+
+
 		$article = Article::find($id);
 
-		$existingTagIds = $article->tags->lists('id');
-		$updatedTagIds = $articleUpdate['tags'];
-
-		$addTagIds = array_diff($updatedTagIds, $existingTagIds);
-		$removeTagIds = array_diff($existingTagIds, $updatedTagIds);
-
-		if($addTagIds)
+		$newPictures = \Input::file('pictures');
+        dd($newPictures);
+		if($newPictures[0])
 		{
-			$article->tags()->attach($addTagIds);
-		}
-		if($removeTagIds)
-		{
-			$article->tags()->detach($removeTagIds);
+            $article->updatePictures($newPictures);
 		}
 
-		$article->meta_keywords = $articleUpdate['meta_keywords'];
+		$article->updateTags((array) $articleUpdate['tags']);
+
 		$article->meta_description = $articleUpdate['meta_description'];
 		$article->title = $articleUpdate['title'];
 		$article->content = $articleUpdate['content'];
 		$article->publish_on = $articleUpdate['publish_on'];
 
 		$article->save();
-		return redirect('blog');
+
+		$article = Article::find($id);
+
+
+		return view('blog.partials.article', compact('article'));
 	}
 
 	/**
@@ -119,7 +120,7 @@ class ArticlesController extends Controller {
 
 		$article->delete();
 
-		return redirect('blog');
+		return "";
 	}
 
 }

@@ -26,16 +26,15 @@ class ArticlesTableSeeder extends Seeder {
          for( $x=0; $x<static::$count; $x++)
          {
              App\Article::create([
-                'meta_keywords'     => implode(' ',
-                                        $faker->words($nb =
-                                                 $faker->numberBetween(3, 10))),
                 'meta_description'  => $faker->sentence,
                 'title'             => $faker->sentence,
+                'title_slug'        => $faker->unique()->word,
                 'content'           => $faker->paragraph,
                 'user_id'           => $faker->numberBetween(1, $userCount),
                 'publish_on'        => $faker->dateTimeBetween
                                                 ($startDate = '-5 years',
-                                                  $endDate = '+2 years'),
+                                                   $endDate = '+2 years')
+                                                    ->format('m/d/Y h:i A'),
             ]);
          }
          //TestDummy::times(static::$quantity)->create('user');

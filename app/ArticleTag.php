@@ -12,12 +12,19 @@ class ArticleTag extends Model {
 	protected $table = 'article_tag';
 
 	/**
+	* Disable timestamps. default = true.
+	*
+	* @var boolean
+	*/
+	public $timestamps = false;
+
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = ['article_id', 'tag'];
-        
+
         /**
          * Relationships a ArticleTag has...
          */
@@ -25,7 +32,7 @@ class ArticleTag extends Model {
         {
             $this->belongsTo('App\Article');
         }
-        
+
         public function tag()
         {
             $this-belongsTo('App\Tag');

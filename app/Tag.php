@@ -12,19 +12,26 @@ class Tag extends Model {
 	protected $table = 'tags';
 
 	/**
+	* Disable timestamps. default = true.
+	*
+	* @var boolean
+	*/
+	public $timestamps = false;
+
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
 	protected $fillable = ['tag'];
 
-        /**
-         * Relationships of a Tag...
-         */
+    /**
+     * Relationships of a Tag...
+     */
 
-        public function articles()
-        {
-            return $this->belongsToMany('App\Article');
-        }
+    public function articles()
+    {
+        return $this->belongsToMany('App\Article');
+    }
 
 }

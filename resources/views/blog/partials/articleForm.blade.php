@@ -1,11 +1,6 @@
 
 
-<div class="form-group">
-    {!! Form::label('meta_keywords', 'Meta Keywords:') !!}
-    {!! Form::text('meta_keywords',
-    isset($article->meta_keywords) ? $article->meta_keywords : null,
-    ['class' => 'form-control']) !!}
-</div>
+
 <div class = "form-group">
     {!! Form::label('meta_description', 'Meta Description:') !!}
     {!! Form::text('meta_description',
@@ -41,7 +36,7 @@
     @foreach($tags as $tag)
         <div class = "tag-check-box no-wrap">
         {!! Form::label($tag->tag) !!}
-        {!! Form::checkbox('tags[]', $tag->id, $article->hasTag($tag->tag)) !!}
+        {!! Form::checkbox('tags[]', $tag->id, isset($article) ? $article->hasTag($tag->tag) : false) !!}
         </div>
     @endforeach
 </div>
@@ -49,5 +44,11 @@
 <div class = "form-group">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#manage-tags-modal">
       Manage Tags
+    </button>
+</div>
+
+<div class = "form-group">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#manage-pictures-modal-{{$article->id}}">
+      Manage Pictures
     </button>
 </div>
