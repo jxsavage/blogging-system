@@ -149,7 +149,7 @@ return [
                 /*
                  * Development Helper Service Providers...
                  */
-                 'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+                 //'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
                  'Laracasts\Generators\GeneratorsServiceProvider',
 
 	],
