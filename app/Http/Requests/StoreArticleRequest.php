@@ -13,17 +13,7 @@ class StoreArticleRequest extends Request {
 	 */
 	public function authorize()
 	{
-		$authorized = false;
-
-		if ( ! \Auth::guest() )
-		{
-			if ( \Auth::user()->hasRole(['owner', 'admin']))
-			{
-				$authorized = true;
-			}
-		}
-
-		return $authorized;
+		return $this->userHasRole(['owner', 'admin']);
 	}
 
 	/**

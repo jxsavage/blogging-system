@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
+use App\Http\Requests\StoreArticlePictureRequest;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request as Request;
@@ -34,10 +34,19 @@ class ArticlePictureController extends Controller {
      *
      * @return redirect to index
      */
-    public function store(Request $articlePicture)
+    public function store(StoreArticlePictureRequest $articlePictures)
     {
+        $picture = $articlePictures['picture'];
+        $articleId = $articlePictures['article_id'];
 
-        ArticlePicture::create($articlePicture);
+
+        $imgName = md5($picture->getClientOriginalName());
+        $picture->move(public_path().'/img/articles/article'.$articleId, $imgName.'.'.$picture->getClientOriginalExtension());
+        ArticlePicture::create([
+            'article_id' => $articleId,
+            'url' => '/img/articles/article'.$articleId.'/'.$imgName.'.'.$picture->getClientOriginalExtension()
+        ]);
+
 
         return redirect('blog');
     }

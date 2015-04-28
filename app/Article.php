@@ -99,19 +99,6 @@ class Article extends Model
         }
     }
 
-    public function updatePictures($newPictures)
-    {
-        dd($newPictures);
-        foreach($newPictures as $picture)
-        {
-            $imgName = md5($picture->getClientOriginalName());
-            $picture->move(public_path().'/img/articles/article'.$this->id, $imgName.'.'.$picture->getClientOriginalExtension());
-            ArticlePicture::create([
-                'article_id' => $this->id,
-                'url' => '/img/articles/article'.$this->id.'/'.$imgName.'.'.$picture->getClientOriginalExtension()
-            ]);
-        }
-    }
 
     /*
     * Overridden methods for an Article.

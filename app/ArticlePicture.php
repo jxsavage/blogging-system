@@ -33,5 +33,11 @@ class ArticlePicture extends Model {
         $this->belongsTo('App\Article');
     }
 
+    public function store($articleId, $pictures)
+    {
+
+    }
+
+
 
 }

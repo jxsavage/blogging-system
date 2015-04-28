@@ -17,14 +17,15 @@
                         @endforeach
                     </div> <!-- end picture-container-article-{{$articlePictures->first()['article_id']}} -->
 
-                    {!! Form::open(['route' => ['article.update', $articlePictures->first()['article_id']],
-                     'method' => 'put', 'files' => true, 'data-target' => '#picture-container-article-'.$articlePictures->first()['article_id']]) !!}
+                    {!! Form::open(['route' => 'articlePicture.store', 'method' => 'post', 'files' => true,
+                        'data-target' => '#picture-container-article-'.$articlePictures->first()['article_id']]) !!}
                         <div class="form-group" id="upload-picture-form-group-{{$article->id}}">
+                            {!! Form::hidden('article_id', $article->id) !!}
                             {!! Form::label('Upload Pictures:') !!}
-                            {!! Form::file('pictures[]', ['class' => 'btn btn-primary', 'multiple' => true]) !!}
-                            <button type="button" class="btn btn-success btn-add-photo" data-target="#upload-picture-form-group-{{$article->id}}">
-                             Add Picture
-                            </button>
+                            {!! Form::file('picture', ['class' => 'btn btn-primary']) !!}
+                            {{--<button type="button" class="btn btn-success btn-add-photo" data-target="#upload-picture-form-group-{{$article->id}}">--}}
+                             {{--Add Picture--}}
+                            {{--</button>--}}
                         </div>
 
 
