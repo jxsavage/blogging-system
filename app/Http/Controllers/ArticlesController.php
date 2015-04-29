@@ -82,18 +82,9 @@ class ArticlesController extends Controller {
 	 */
 	public function update($id,  Request $articleUpdate)
 	{
-
-
 		$article = Article::find($id);
 
-		$newPictures = \Input::file('pictures');
-        dd($newPictures);
-		if($newPictures[0])
-		{
-            $article->updatePictures($newPictures);
-		}
-
-		$article->updateTags((array) $articleUpdate['tags']);
+		$article->tags()->sync($articleUpdate['tags']);
 
 		$article->meta_description = $articleUpdate['meta_description'];
 		$article->title = $articleUpdate['title'];
