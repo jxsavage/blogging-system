@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY'),
+	'key' => env(parse_url(getenv("APP_KEY")), 'APP_KEY'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
